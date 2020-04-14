@@ -54,6 +54,10 @@
             <li v-for="item in list">{{item.text}}</li>
         </ol>
     </div>
+    <div id="app-5">
+        <p>{{message}}</p>
+        <button v-on:click="reverseMessage">反转消息</button>
+    </div>
 </body>
 
 <script>
@@ -103,6 +107,19 @@
 
             ]
         }
+    })
+</script>
+<script>
+    var app5 = new Vue({
+        el: "#app-5",
+        data: {
+            message:"信息"
+        },
+        methods: {
+            reverseMessage(){
+                this.message=this.message.split('').reverse().join(''); 
+            }
+        },
     })
 </script>
 

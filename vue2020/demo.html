@@ -6,12 +6,148 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
-    <video muted="muted" loop="loop" autoplay="autoplay" height="100%" width="100%">
-        <source src="https://static.web.sdo.com/jijiamobile/pic/ff14/ffweb850/vindex0130_2.mp4?123" type="video/mp4">
-    </video>
+
 </body>
+<script>
+
+    // var vm = new Vue({
+    //     data: {
+    //         test: {
+    //             a: 1
+    //         }
+    //     },
+    //     created() {
+    //         console.log(this.test)
+    //     }
+    // })
+    // var o = { a: 1 };
+    // Object.defineProperty(o, "b", { value: 2, writable: false, enumerable: false, configurable: true });
+    // Object.getOwnPropertyDescriptor(o, "a");
+    // Object.getOwnPropertyDescriptor(o, "b");
+    // o.b = 3;
+    // console.log(o);
+    // var o = {
+    //     get a() {
+    //         return 1;
+    //     }
+    // }
+    // console.log(o.a);
+    // var Book = {};
+    // var name = '';
+    // Object.defineProperty(Book, "name", {
+    //     set(val) {
+    //         name = val;
+    //     },
+    //     get() {
+    //         return '《' + name + '》';
+    //     }
+    // });
+    // Book.name = "乌合之众";
+    // console.log(Book);
+    // 捕获修改
+    function defineReactive(data, key, val) {
+        // data=>library
+        // key=>{book1,book2}
+        // val=>新属性
+        // console.log("data" + data + "key" + key + "val" + val);
+        observe(val);
+        var dep = new Dep();
+        Object.defineProperty(data, key, {
+            // 参数：
+            // data=>要在其上定义的对象
+            // key=>要定义或修改的属性名
+            // {}=>将被定义或修改的属性
+            enumerable: true,
+            configurable: true,
+            get() {
+                if ('是否需要添加订阅者') {
+                    dep.addSub(watcher);
+                }
+                return val;
+            },
+            set(newVal) {
+                if (val === newVal) {
+                    return;
+                }
+                val = newVal;
+                console.log("属性" + data + "已被监听，现在更新的值为：" + newVal.toString());
+                dep.notify();
+
+            }
+        })
+    }
+
+    // 监听器
+    // 监听所有对象属性
+    function observe(data) {
+        if (!data || typeof data !== 'object') {
+            return;
+        }
+        Object.keys(data).map((key) => {
+            defineReactive(data, key, data[key]);
+        })
+    }
+
+    var library = {
+        book1: {
+            name: ''
+        },
+        book2: ''
+    }
+    // observe(library);
+    // library.book1.name = "《乌合之众》";
+    // library.book2 = "没有此书籍";
+    // 订阅器
+    function Dep() {
+        this.subs = [];
+    }
+    Dep.prototype = {
+        addSub(sub) {
+            this.subs.push(sub);
+        },
+        notify() {
+            this.subs.forEach((sub) => {
+                sub.update();
+            })
+        }
+    }
+    Dep.target = null;
+    function Watch(){
+
+    }
+
+
+
+
+
+
+
+
+    // (function () {
+    //     var o = {
+    //         a: 7,
+    //         get b() {
+    //             return this.a + 1;
+    //         },
+    //         set c(x) {
+    //             return this.a =x*2;
+    //         }
+    //     }
+    //     console.log(o.a);
+    //     console.log(o.b);
+    //     o.c=50;
+    //     console.log(o.a);
+    // })();
+
+
+
+
+
+
+</script>
 
 </html>

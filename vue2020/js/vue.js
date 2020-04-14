@@ -495,6 +495,9 @@
      * Define a property.
      */
     function def (obj, key, val, enumerable) {
+      // obj:要在其上定义属性的对象
+      // prop(key):要定义或修改的属性描述符
+      // descriptor(val):将被定义或修改的属性描述符
       Object.defineProperty(obj, key, {
         value: val,
         enumerable: !!enumerable,
