@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>react</title>
+    <style>
+        .title {
+            background: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="js/react.development.js"></script> <!-- react核心库-->
+    <script src="js/react-dom.development.js"></script> <!-- react周边库-->
+    <script src="js/babel.min.js"></script>
+    <!-- 区分【js语句代码】与【js表达式】
+    1.表达式：一个表达式会产生一个值，可以放在任何一个需要值的地方,用任何变量都可以接收到
+        以下内容都是表达式：
+        (1) a
+        (2) a+b
+        (3) demo(1)
+        (4) arr.map()
+        (5) function test(){}
+    2.语句(代码)
+        以下内容都是代码：
+        (1) if(){}
+        (2) for(){}
+        (3) switch(){case:xxxx} -->
+    <!--编译器-->
+    <script type="text/babel">
+        // const myId = "myId"
+        // const myData = ['react', 'vue', 'anbular']
+        // const VDOM = <h1 id={myId} className="title">前端js框架列表
+        //     <ul>
+        //         {
+        //             myData.map((item, index) => {
+        //                 return <li key={index}> {item} </li>
+        //             })
+        //         }
+        //     </ul>
+        // </h1>
+        // ReactDOM.render(VDOM, document.getElementById('app')) // 虚拟dom,选择器,
+        // 1.创建函数式组件
+        // function MyComponents() {
+        //     return <h1>我是由函数创建的简单组件</h1>
+        // }
+        // ReactDOM.render(<MyComponents />, document.getElementById('app'))
+        // 执行ReactDOM.render(<MyComponents />, document.getElementById('app'))之后发生了什么？
+        // (1).react解析了组件标签，找到了MyComponents
+        // (2).发现式函数定义的，然后调用该函数，
+        // (3).将返回的虚拟dom转成真实dom，渲染到页面上
+        // 2.创建类式组件
+        class MyComponents extends React.Component {
+            render() {
+                console.log("render中的this", this)
+                // render是放在哪里的？---放在MyComponents的原型对象上，供实例使用
+                // render的this是谁？ --- MyComponents的实例对象===MyComponents组件对象
+                return <h1>我是由类创建的复杂组件</h1>
+            }
+        }
+        ReactDOM.render(<MyComponents />, document.getElementById('app'))
+        // 执行ReactDOM.render(<MyComponents />, document.getElementById('app'))之后发生了什么？
+        // (1).react解析了组件标签，找到了MyComponents
+        // (2).发现式函数定义的，然后new出来该类的实例，并通过该实例调用到原型上的render方法
+        // (3).将返回的虚拟dom转成真实dom，渲染到页面上
+
+    </script>
+    <!-- 注释： -->
+    <!-- 虚拟dom:
+        1.本质上是object对象(一般对象)
+        2.虚拟dom较轻，在react内部进行使用，无需全部真实dom的属性
+        3.虚拟dom会被react转化成真实的dom,渲染到页面上 -->
+    <!-- jsx语法规则：
+        1.定义虚拟dom是不需要写引号 
+        2.标签中混入js表达式时要用{}
+        3.样式的类名指定需要用className
+        4.内联样式要用style={{key:value}}形式写
+        5.只有一个根标签
+        6.标签必须闭合
+        7.标签首字母
+            (1)小写字母开头，则将标签转为html中同名元素，若html中无该标签对应的同名元素，则报错
+            (2)若大写字母开头，react就会去渲染对应的组件，若未定义则报错
+    -->
+    <!-- 函数式编程：
+    1.首字母必须大写
+    2. -->
+
+</body>
+
+</html>
